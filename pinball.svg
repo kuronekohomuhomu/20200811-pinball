@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="600"
+   height="600"
+   viewBox="0 0 158.75 158.75"
+   version="1.1"
+   id="svg31"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:docname="pinball.svg">
+  <defs
+     id="defs25" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.225"
+     inkscape:cx="277.95918"
+     inkscape:cy="303.2653"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     inkscape:pagecheckerboard="true"
+     inkscape:window-width="1663"
+     inkscape:window-height="943"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata28">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="枠"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.284432px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 0,0.38695028 H 158.60778 V 0.142216 h -0.22028 v 0"
+       id="path52" />
+    <path
+       id="path52-1"
+       d="M 2.0015097e-6,158.57824 H 0.35741358 V 0.171755 H 0.3569172 v 0"
+       style="fill:none;stroke:#000000;stroke-width:0.34351px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.343511px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 158.22083,158.57824 h 0.35741 V 0.17175549 h -5e-4 v 0"
+       id="path52-1-2" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.215362px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 142.94902,0.07613826 C 158.32904,15.457654 158.67465,15.815363 158.67465,15.815363 l -0.51842,-0.536564"
+       id="path84" />
+    <path
+       id="path84-7"
+       d="m 135.01365,10.659472 c 15.38002,15.381515 15.72563,15.739224 15.72563,15.739224 l -0.51842,-0.536564"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:0.215362px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       style="display:inline;fill:none;stroke:#000000;stroke-width:0.209697px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 150.8125,158.64515 h 0.15974 V 26.563182 h -2.3e-4 v 0"
+       id="path52-1-9" />
+    <path
+       id="path52-18"
+       d="m 150.8125,132.5271 h 7.90835 v -0.20628 h -0.011 v 0"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:0.0583084px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+  </g>
+  <g
+     style="display:inline"
+     inkscape:label="レーン"
+     id="layer4"
+     inkscape:groupmode="layer">
+    <rect
+       transform="matrix(0.86671321,0.49880678,-0.46822633,0.88360857,0,0)"
+       y="101.9443"
+       x="68.7146"
+       height="2.6472571"
+       width="37.044353"
+       id="rect174"
+       style="fill:#666666;fill-rule:evenodd;stroke-width:0.166569;image-rendering:auto" />
+    <rect
+       style="fill:#666666;fill-rule:evenodd;stroke-width:0.166569;image-rendering:auto"
+       id="rect174-9"
+       width="37.044353"
+       height="2.6472569"
+       x="-73.055321"
+       y="181.97499"
+       transform="matrix(-0.86671321,0.49880678,0.46822633,0.88360857,0,0)" />
+  </g>
+  <g
+     inkscape:label="スリングショット"
+     id="layer5"
+     inkscape:groupmode="layer">
+    <rect
+       transform="matrix(-0.92995363,0.36767682,0.36767682,0.92995363,0,0)"
+       y="104.02956"
+       x="1.697134"
+       height="31.75"
+       width="5.2916665"
+       id="rect231"
+       style="fill:#00ff00;stroke-width:0.286107" />
+    <rect
+       style="fill:#00ff00;stroke-width:0.286107"
+       id="rect231-3"
+       width="5.2916665"
+       height="31.75"
+       x="149.9966"
+       y="45.396236"
+       transform="rotate(21.572412)" />
+  </g>
+  <g
+     style="display:inline"
+     inkscape:label="バンパー"
+     id="layer6"
+     inkscape:groupmode="layer">
+    <circle
+       r="13.229167"
+       cy="39.6875"
+       cx="39.6875"
+       id="path208"
+       style="fill:#ff00ff;stroke-width:0.264583" />
+    <circle
+       style="fill:#ff00ff;stroke-width:0.264583"
+       id="path208-5"
+       cx="79.375"
+       cy="66.145836"
+       r="13.229167" />
+    <circle
+       style="fill:#ff00ff;stroke-width:0.264583"
+       id="path208-57"
+       cx="119.0625"
+       cy="39.6875"
+       r="13.229167" />
+  </g>
+  <g
+     style="display:inline"
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="背景" />
+</svg>

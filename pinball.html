@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ピンボール</title>
+<script src="Box2D.js"></script>
+<script>
+let canvas, context;
+let world, w, h;
+let bodyDef, fixDef;
+let ball, flipper_l, flipper_r;
+const ballImage = new Image();
+ballImage.src = "ball.png";
+const flipperImage = new Image();
+flipperImage.src = "flipper.png";
+let speed = 0, cnt = 3, score = 0;
+let status = "ready", timer = null;
+const scale = 10;
+const b2Vec2 = Box2D.Common.Math.b2Vec2;
+
+const init = () => {
+    // キャンバスの取得
+    canvas = document.getElementById("field");
+    context = canvas.getContext("2d");
+    // 物理ワールド (重力加速度: 9.8)
+    world = new Box2D.Dynamics.b2World(new b2Vec2(0, 9.8), true);
+    [w, h] = [canvas.width/scale, canvas.height/scale];
+    // 物体、形状の定義
+    bodyDef = new Box2D.Dynamics.b2BodyDef;
+    fixDef = new Box2D.Dynamics.b2FixtureDef;
+    [fixDef.density, fixDef.friction, fixDef.restitution] = [0.5, 0.1, 0.5];
+    // ボール
+    ball = setBall("ball", w-1.5, 30, 1, true);
+    // 枠、シューター
+    setBox("waku", 30, 0, w/2, 0.1, 0);
+    setBox("waku", 0, 30, 0.1, h/2, 0);
+    setBox("waku", w, 30, 0.1, h/2, 0);
+    setBox("waku", w-3, 35, 0.1, h/2-5, 0);
+    setBox("waku", w-3, 3, 3*2**0.5, 0.1, Math.PI/4);
+    setBox("waku", w-6, 7, 3*2**0.5, 0.1, Math.PI/4);
+    setBox("shooter", w-1.5, 55, 1.5, 5, 0);
+    // フリッパー
+    const lane_l = setBox("lane", 10, 50, 7, 0.5, Math.PI/6);
+    flipper_l = setBox("flipper", 22, 57, 5, 1, Math.PI/8, true);
+    setJoint(lane_l, flipper_l, 18, 57, -Math.PI/6, 0);
+    const lane_r = setBox("lane", 50, 50, 7, 0.5, -Math.PI/6);
+    flipper_r = setBox("flipper", 38, 57, 5, 1, -Math.PI/8, true);
+    setJoint(lane_r, flipper_r, 42, 57, 0, Math.PI/6);
+    // バンパー、スリングショット
+    fixDef.restitution = 1.5;
+    setBall("bumper", 30, 25, 5);
+    setBall("bumper", 15, 15, 5);
+    setBall("bumper", 45, 15, 5);
+    setBox("sling", 15, 42, 6, 1, Math.PI/3);
+    setBox("sling", 45, 42, 6, 1, -Math.PI/3);
+    // 衝突判定
+    const listener = new Box2D.Dynamics.b2ContactListener;
+    listener.BeginContact = contact => {
+        let object = contact.GetFixtureA().GetBody().GetUserData();
+        object += contact.GetFixtureB().GetBody().GetUserData();
+        if (object.indexOf("shooter") != -1) status = "ready";
+        if (object.indexOf("bumper") != -1) score += 100;
+        if (object.indexOf("sling") != -1) score += 10;
+    }
+    world.SetContactListener(listener);
+    // キーイベントの登録
+    document.addEventListener("keydown", play);
+    document.addEventListener("keyup", shoot);
+    // ゲーム開始
+    timer = setInterval(update, 1000/60);
+}
+
+const setBox = (name, x, y, width, height, angle, dynamic = false) => {
+    // ボックスの生成
+    bodyDef.type = Box2D.Dynamics.b2Body.b2_staticBody;
+    if (dynamic) bodyDef.type = Box2D.Dynamics.b2Body.b2_dynamicBody;
+    bodyDef.userData = name;
+    fixDef.shape = new Box2D.Collision.Shapes.b2PolygonShape;
+    fixDef.shape.SetAsBox(width, height);
+    const box = world.CreateBody(bodyDef);
+    box.CreateFixture(fixDef);
+    box.SetPosition(new b2Vec2(x, y));
+    box.SetAngle(angle);
+    return box;
+}
+
+const setBall = (name, x, y, r, dynamic = false) => {
+    // ボールの作成
+    bodyDef.type = Box2D.Dynamics.b2Body.b2_staticBody;
+    if (dynamic) bodyDef.type = Box2D.Dynamics.b2Body.b2_dynamicBody;
+    bodyDef.userData = name;
+    fixDef.shape = new Box2D.Collision.Shapes.b2CircleShape(r);
+    const ball = world.CreateBody(bodyDef);
+    ball.CreateFixture(fixDef);
+    ball.SetPosition(new b2Vec2(x, y));
+    return ball;
+}
+
+const setJoint = (object1, object2, x, y, angle1, angle2) => {
+    // ジョイントの作成
+    const jointDef = new Box2D.Dynamics.Joints.b2RevoluteJointDef();
+    jointDef.Initialize(object1, object2, new b2Vec2(x, y));
+    [jointDef.lowerAngle, jointDef.upperAngle] = [angle1, angle2];
+    jointDef.enableLimit = true;
+    const joint = world.CreateJoint(jointDef);
+}
+
+const update = () => {
+    // 物理ワールドを更新
+    world.Step(1/60, 10, 10);
+    world.ClearForces();
+    // ボール、フリッパーの描画
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawObject(ball, 20, 20, ballImage);
+    drawObject(flipper_l, 100, 20, flipperImage);
+    drawObject(flipper_r, 100, 20, flipperImage);
+    // 落下
+    if ((status == "start") && (ball.GetPosition().y > 65)) {
+        cnt--;
+        if (cnt == 0) {
+            // 終了
+            clearInterval(timer);
+            document.getElementById("message").innerText = "GAME OVER";
+        } else {
+            speed = 0;
+            ball.SetPosition(new b2Vec2(w-1.5, 30));
+            ball.SetLinearVelocity(new b2Vec2(0, -speed));
+        }
+    }
+    // ボール数、スコアの表示
+    document.getElementById("ball").innerText = cnt;
+    document.getElementById("score").innerText = score;
+}
+
+const drawObject = (object, w, h, image) => {
+    // オブジェクトの描画
+    const x = object.GetPosition().x * scale;
+    const y = object.GetPosition().y * scale;
+    context.save();
+    context.translate(x, y);
+    context.rotate(object.GetAngle());
+    context.drawImage(image, -w/2, -h/2);
+    context.restore();
+}
+
+const play = event => {
+    // チャージ
+    if ((status == "ready") && (event.key == "ArrowDown")) {
+        speed += 5;
+        if (speed > 100) speed = 100;
+    }
+    // フリッパーの操作
+    if (event.key == "ArrowLeft") flipper_l.ApplyTorque(-200000);
+    if (event.key == "ArrowRight") flipper_r.ApplyTorque(200000);
+}
+
+const shoot = event => {
+    // ボールの発射
+    if ((status == "ready") && (event.key == "ArrowDown")) {
+        ball.SetAwake(true);
+        ball.SetLinearVelocity(new b2Vec2(0, -speed));
+        status = "start";
+    }
+}
+</script>
+<style>
+canvas {background-image: url("pinball.png");}
+#message {color: #CC0000;}
+</style>
+</head>
+<body onload="init()">
+<p>ピンボール</p>
+BALL:<span id="ball">3</span> SCORE:<span id="score">0</span>
+<span id="message"></span><hr>
+<canvas id="field" width="600" height="600"></canvas>
+</body>
+</html>
